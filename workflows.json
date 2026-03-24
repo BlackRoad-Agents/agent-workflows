@@ -1,0 +1,153 @@
+{
+  "version": "1.0.0",
+  "description": "BlackRoad OS Multi-Step Agent Workflows",
+  "workflows": [
+    {
+      "id": "plan-and-code",
+      "name": "Plan and Code",
+      "description": "Design a solution then implement it with code review",
+      "steps": [
+        {
+          "step": 1,
+          "agent": "scholar",
+          "action": "analyze",
+          "prompt_template": "Analyze this task and create a technical design plan with architecture decisions, data structures, and implementation steps: {input}",
+          "output_key": "design_plan"
+        },
+        {
+          "step": 2,
+          "agent": "coder",
+          "action": "implement",
+          "prompt_template": "Based on this design plan, write the complete implementation with error handling and comments:\n\n{design_plan}",
+          "output_key": "implementation"
+        },
+        {
+          "step": 3,
+          "agent": "coder",
+          "action": "review",
+          "prompt_template": "Review this code for bugs, edge cases, and improvements. List issues found and suggest fixes:\n\n{implementation}",
+          "output_key": "review"
+        }
+      ]
+    },
+    {
+      "id": "research",
+      "name": "Research and Write",
+      "description": "Research a topic thoroughly then produce a written deliverable",
+      "steps": [
+        {
+          "step": 1,
+          "agent": "scholar",
+          "action": "research",
+          "prompt_template": "Research this topic thoroughly. Provide key facts, different perspectives, and source types you would cite: {input}",
+          "output_key": "research_notes"
+        },
+        {
+          "step": 2,
+          "agent": "writer",
+          "action": "write",
+          "prompt_template": "Using these research notes, write a clear, well-structured article. Use headings, be concise, cite the research:\n\n{research_notes}",
+          "output_key": "article"
+        }
+      ]
+    },
+    {
+      "id": "debug",
+      "name": "Debug Pipeline",
+      "description": "Diagnose a bug then verify the fix with tests",
+      "steps": [
+        {
+          "step": 1,
+          "agent": "coder",
+          "action": "diagnose",
+          "prompt_template": "Analyze this bug report. Identify the likely root cause, explain why it happens, and propose a fix:\n\n{input}",
+          "output_key": "diagnosis"
+        },
+        {
+          "step": 2,
+          "agent": "coder",
+          "action": "fix",
+          "prompt_template": "Write the code fix based on this diagnosis. Include the corrected code and explain what changed:\n\n{diagnosis}",
+          "output_key": "fix"
+        },
+        {
+          "step": 3,
+          "agent": "coder",
+          "action": "test",
+          "prompt_template": "Write test cases that verify this fix works correctly and catches regression:\n\nFix applied:\n{fix}\n\nOriginal bug:\n{input}",
+          "output_key": "tests"
+        }
+      ]
+    },
+    {
+      "id": "content",
+      "name": "Content Pipeline",
+      "description": "Draft content then edit for quality and consistency",
+      "steps": [
+        {
+          "step": 1,
+          "agent": "writer",
+          "action": "draft",
+          "prompt_template": "Write a first draft for this content request. Focus on getting the ideas down clearly: {input}",
+          "output_key": "draft"
+        },
+        {
+          "step": 2,
+          "agent": "writer",
+          "action": "edit",
+          "prompt_template": "Edit this draft for clarity, conciseness, tone consistency, and factual accuracy. The voice should be warm, direct, and grounded. Return the improved version:\n\n{draft}",
+          "output_key": "edited"
+        }
+      ]
+    },
+    {
+      "id": "security-audit",
+      "name": "Security Audit",
+      "description": "Scan for vulnerabilities then review findings",
+      "steps": [
+        {
+          "step": 1,
+          "agent": "cipher",
+          "action": "scan",
+          "prompt_template": "Perform a security audit of this code or configuration. Check for: injection, auth issues, secrets exposure, misconfigurations, and OWASP Top 10 risks:\n\n{input}",
+          "output_key": "findings"
+        },
+        {
+          "step": 2,
+          "agent": "cipher",
+          "action": "prioritize",
+          "prompt_template": "Prioritize these security findings by severity (critical/high/medium/low). For each, provide a remediation step:\n\n{findings}",
+          "output_key": "prioritized_findings"
+        },
+        {
+          "step": 3,
+          "agent": "coder",
+          "action": "remediate",
+          "prompt_template": "Write code fixes for these prioritized security findings. Focus on critical and high severity items first:\n\n{prioritized_findings}",
+          "output_key": "remediations"
+        }
+      ]
+    },
+    {
+      "id": "onboard",
+      "name": "Onboarding Guide",
+      "description": "Create a beginner-friendly guide with support follow-up",
+      "steps": [
+        {
+          "step": 1,
+          "agent": "tutor",
+          "action": "explain",
+          "prompt_template": "Create a step-by-step getting started guide for a complete beginner on this topic. Use simple language, analogies, and check understanding at each step: {input}",
+          "output_key": "guide"
+        },
+        {
+          "step": 2,
+          "agent": "tutor",
+          "action": "support",
+          "prompt_template": "Based on this guide, anticipate the top 5 questions a beginner would ask and write clear answers for each:\n\n{guide}",
+          "output_key": "faq"
+        }
+      ]
+    }
+  ]
+}
